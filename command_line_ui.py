@@ -1,6 +1,7 @@
 import argparse
 
 from parsers import parse_file
+import pretty_print as pp
 
 
 def run():
@@ -36,4 +37,6 @@ def run():
         request = request_picker.get(number)
 
     response = request.send()
-    print(f'\n\n{response.status}\n{response.pretty_headers}\n\n{response.pretty_body}')
+    headers = pp.pretty_format_headers(response.headers)
+    body = pp.pretty_format_body(response.body, response.content_type)
+    print(f'\n\n{response.status}\n{headers}\n\n{body}')

@@ -25,33 +25,17 @@ class Response:
         headers = {k.lower(): v for k,v in headers.items()}
 
         self.status = status
-        self._headers = headers
-        self._body = body
+        self.headers = headers
+        self.body = body
 
 
     def __str__(self) -> str:
-        return f"{self.status}\n{self.pretty_headers}\n{self.pretty_body}"
+        return f"{self.status}\n{self.headers}\n{self.body}"
 
 
     @property
-    def pretty_body(self) -> str:
-        return self._body
-
-
-    @property
-    def body(self) -> str:
-        return self._body
-
-
-    @property
-    def pretty_headers(self) -> str:
-        return utils.pretty_format_headers(self._headers)
-
-
-    @property
-    def headers(self) -> dict[str, str]:
-        return self._headers
-
+    def content_type(self) -> str:
+        return self.headers.get('content-type', '').lower()
 
 
 class Request:
@@ -73,8 +57,7 @@ class Request:
 
 
     def __str__(self) -> str:
-        headers = utils.pretty_format_headers(self._headers)
-        return f'{self._method} {self._url}\n{headers}\n\n{self._body}'
+        return f'{self._method} {self._url}\n{self._headers}\n\n{self._body}'
 
 
     @property
