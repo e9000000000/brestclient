@@ -3,7 +3,7 @@ in terminal rest client, super simple and super useful
 
 
 # development plans
-- [ ] just requests
+- [X] just requests
 - [ ] json output parsing, pretty print
 - [ ] json output syntax coloring
 - [ ] html output parsing, pretty print and syntax coloring
