@@ -1,7 +1,7 @@
 import re
 
-from http_stuff import Request
-from request_picker import RequestPicker
+from .http_stuff import Request
+from .request_picker import RequestPicker
 
 
 def parse_request(text: str) -> Request:

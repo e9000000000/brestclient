@@ -1,7 +1,7 @@
 import argparse
 
-from parsers import parse_file
-import pretty_print as pp
+from . import parsers
+from . import pretty_print as pp
 
 
 def run():
@@ -21,7 +21,7 @@ def run():
 
     args = parser.parse_args()
 
-    request_picker = parse_file(args.filepath)
+    request_picker = parsers.parse_file(args.filepath)
 
     if args.query:
         request = request_picker.find(args.query)

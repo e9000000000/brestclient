@@ -1,4 +1,4 @@
-from http_stuff import Request
+from .http_stuff import Request
 
 
 class RequestPicker:

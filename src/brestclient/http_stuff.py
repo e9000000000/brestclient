@@ -3,7 +3,7 @@ from typing import Literal
 import requests
 from requests.structures import CaseInsensitiveDict
 
-import utils
+from . import utils
 
 
 HTMLMethod = Literal['GET', 'HEAD', 'POST', 'PUT', 'PATH', 'DELETE', 'OPTIONS']

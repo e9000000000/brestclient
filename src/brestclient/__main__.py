@@ -1,4 +1,4 @@
-import command_line_ui
+from . import command_line_ui
 
 
 if __name__ == '__main__':
