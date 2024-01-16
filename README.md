@@ -15,7 +15,7 @@ syntax similar to other rest clients:
 then perform requests with `python3 -m brestclient ./path/po/file`
 
 ## file syntax
-```http
+```restclient
 ### request name
 # name REQUIRED to be UNIQUE in entire file
 # there should not be any two requests with same name
@@ -41,7 +41,7 @@ HEADER_KEY: HEADER_VALUE
 ```
 
 ## file example
-```http
+```restclient
 ### yandex request
 # it's just a search get request, no headers or body requeired
 GET https://ya.ru?q=coala
