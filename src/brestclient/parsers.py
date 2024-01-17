@@ -85,20 +85,23 @@ def parse_file(file_path: str) -> RequestPicker:
     raw_requests = regex.findall(text)
 
     for raw_request in raw_requests:
-        lines = raw_request.splitlines()
-        end_of_comments = 0
-        for line in lines:
-            if line.startswith('#'):
-                end_of_comments += 1
-            else:
-                break
+        try:
+            lines = raw_request.splitlines()
+            end_of_comments = 0
+            for line in lines:
+                if line.startswith('#'):
+                    end_of_comments += 1
+                else:
+                    break
 
-        name = lines[0][3:].strip()
-        raw_request_without_comments = '\n'.join(lines[end_of_comments:])
-        request = parse_request(raw_request_without_comments)
-        request_picker.add_request(
-            name=name,
-            request=request,
-        )
+            name = lines[0][3:].strip()
+            raw_request_without_comments = '\n'.join(lines[end_of_comments:])
+            request = parse_request(raw_request_without_comments)
+            request_picker.add_request(
+                name=name,
+                request=request,
+            )
+        except:
+            print(f"ERROR: can't parse this request:\n{raw_request}\n")
 
     return request_picker

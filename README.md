@@ -71,7 +71,18 @@ also you can run it without interactive menu, for it specify --query or -q param
 in this case request will be finded by it's name
 ```bash
 python3 -m brestclient ./path/to/file -q google
+```
 
+or you can run it with -l or --list argument to print list of requests with their order number  
+and then run program with -n NUMBER or --request-number NUMBER to perform request  
+example:
+```bash
+python3 -m brestclient ./path/to/file -l
+1: first request
+2: second request
+...
+
+python3 -m brestclient ./path/to/file -n 2
 ```
 
 # development plans
@@ -80,8 +91,8 @@ python3 -m brestclient ./path/to/file -q google
 - [X] make it a python package
 - [X] create documentation how to use
 - [X] publish package
+- [ ] save output to variables, and ability to use them later
 - [ ] if response in html format - ask for open it in browser
 - [ ] flag -r to get raw response in http format
 - [ ] json output syntax coloring
 - [ ] html output parsing, pretty print and syntax coloring
-- [ ] save output to variables, and ability to use them later
