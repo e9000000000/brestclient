@@ -54,6 +54,8 @@ class Request:
         self._url = url
         self._headers: dict[str, str] = {}
         self._body: str | None = None
+        self.variable_names: list[str] = []
+        self._variables: dict[str, str] = {}
 
 
     def __str__(self) -> str:
@@ -65,6 +67,11 @@ class Request:
         if self._url.startswith('http'):
             return self._url
         return 'https://' + self._url
+
+
+    def set_variable_value(self, var: str, value: str):
+        if var in self.variable_names:
+            self._variables[var] = value
 
 
     def add_header(self, key: str, value: str):
@@ -80,12 +87,30 @@ class Request:
         self._body = body.strip()
 
 
+    def _with_placed_values(self, text: str | None) -> str | None:
+        if not text:
+            return text
+
+        # TODO: optimize, it would be slow
+        result = text
+        for var, value in self._variables.items():
+            placeholder = f'{{{{{var}}}}}'
+            value_txt = f'{value}'
+
+            result = result.replace(placeholder, value_txt)
+        return result
+
+
     def send(self) -> Response:
+        url = self._with_placed_values(self._url)
+        headers = {self._with_placed_values(k): self._with_placed_values(v) for k, v in self._headers.items()}
+        body = self._with_placed_values(self._body)
+
         r = requests.request(
             method=self._method,
-            url=self.url,
-            headers=self._headers,
-            data=self._body,
+            url=url,
+            headers=headers,
+            data=body,
         )
 
         return Response(

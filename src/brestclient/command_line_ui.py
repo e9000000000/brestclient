@@ -38,13 +38,16 @@ def run():
 
     args = parser.parse_args()
 
-    request_picker = parsers.parse_file(args.filepath)
+    file = parsers.parse_file(args.filepath)
+    request_picker = file.request_picker
+    variables = file.variables
 
     if args.list:
         print_request_list(request_picker)
         exit(0)
 
 
+    # chouse a request
     if args.query:
         request = request_picker.find(args.query)
         if request is None:
@@ -58,6 +61,16 @@ def run():
 
         number = int(input('> '))
         request = request_picker.get(number)
+
+
+    # perform
+    request_variables = variables.get_variables_and_saved_values_for_request(request)
+    for v, saved_val in request_variables:
+        val = input(f'{v} ({saved_val}): ')
+        if val != saved_val and val != '':
+            variables.set_variable(v, val)
+
+    variables.set_request_variable_values(request)
 
     response = request.send()
     headers = pp.pretty_format_headers(response.headers)

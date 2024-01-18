@@ -30,12 +30,13 @@ then perform requests with `python3 -m brestclient ./path/po/file`
 # all is right of : is a header value
 # both will be striped
 # body will be striped as one big line
-METHOD URL
+METHOD URL?a={{in_url_variable}}
 HEADER_KEY: HEADER_VALUE
 HEADER_KEY: HEADER_VALUE
+HEADER_{{var1}}: HEADER_{{var2}}
 
 {
-    "all lines till the end are lines of a request body",
+    "all lines till the end are {{variables_can_be_everywhere}} lines of a request body",
     "there can be anything, json or plane text, or nothing if it's GET request"
 }
 ```
